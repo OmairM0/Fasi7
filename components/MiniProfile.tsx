@@ -4,6 +4,7 @@ import { User } from "@supabase/supabase-js";
 import { LogOut } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface IProps {
   user: {
@@ -49,7 +50,7 @@ const MiniProfile = ({ user }: IProps) => {
             {name}
           </p>
           <p className="cursor-pointer hover:bg-gray-100 duration-300">
-            الملف الشخصي
+            <Link href="/profile">الملف الشخصي</Link>
           </p>
           <p
             role="button"

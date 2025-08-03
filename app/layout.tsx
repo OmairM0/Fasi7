@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
+import { Toaster } from "sonner";
 
 const suisseIntl = localFont({
   src: [
@@ -41,7 +42,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar">
-      <body className={`${suisseIntl.variable} antialiased`}>{children}</body>
+      <body className={`${suisseIntl.variable} antialiased`}>
+        {children}
+        <Toaster
+          duration={2000}
+          dir="rtl"
+          className="font-suisse"
+          toastOptions={{
+            style: { fontWeight: "500" },
+          }}
+          position="top-center"
+          richColors
+        />
+      </body>
     </html>
   );
 }

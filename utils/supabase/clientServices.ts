@@ -26,7 +26,7 @@ export async function getUserData() {
     .select("*")
     .eq("id", user?.id)
     .single();
-  return { user, userDataFromTable };
+  return { user, data: userDataFromTable.data };
 }
 
 export async function logOut() {
@@ -36,4 +36,59 @@ export async function logOut() {
   }
 
   return true;
+}
+
+export async function editName({ id, name }: { id: string; name: string }) {
+  const { data, error } = await supabase
+    .from("users")
+    .update([{ name }])
+    .eq("id", id)
+    .select();
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+export async function editBio({ id, bio }: { id: string; bio: string }) {
+  const { data, error } = await supabase
+    .from("users")
+    .update([{ bio }])
+    .eq("id", id)
+    .select();
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+export async function editUsername({
+  id,
+  username,
+}: {
+  id: string;
+  username: string;
+}) {
+  const { data, error } = await supabase
+    .from("users")
+    .update([{ username }])
+    .eq("id", id)
+    .select();
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}
+
+export async function isUsernameAvailable(username: string): Promise<boolean> {
+  const { data, error } = await supabase
+    .from("users")
+    .select("id")
+    .eq("username", username.trim())
+    .single();
+
+  return !data;
 }
