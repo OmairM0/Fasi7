@@ -16,7 +16,6 @@ import {
 import { Pen } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { ca } from "zod/locales";
 
 export default function ProfilePage() {
   const [userData, setUserData] = useState<IUser>();

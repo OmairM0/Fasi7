@@ -2,6 +2,7 @@ import { createClient } from "@/utils/supabase/server";
 import ButtonLink from "./ui/ButtonLink";
 import MiniProfile from "./MiniProfile";
 import { getUserData } from "@/utils/supabase/serverServices";
+import Link from "next/link";
 
 const Menu = async () => {
   const supabase = await createClient();
@@ -13,13 +14,13 @@ const Menu = async () => {
     <div className="flex items-center gap-8">
       <ul className="hidden gap-4 text-[20px]  sm:flex">
         <li>
-          <a href="#">المقالات</a>
+          <Link href="/posts">المقالات</Link>
         </li>
         <li>
-          <a href="#">الأقسام</a>
+          <Link href="#">الأقسام</Link>
         </li>
         <li>
-          <a href="#">من نحن</a>
+          <Link href="#">من نحن</Link>
         </li>
       </ul>
       {user ? (

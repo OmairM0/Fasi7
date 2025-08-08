@@ -45,7 +45,7 @@ const Login = () => {
 
           <SubmitButton />
         </form>
-        <div className="mt-2">
+        <div className="mt-2 flex">
           ليس لديك حساب؟
           <ButtonLink title="إنشاء حساب" href="/signup" />
         </div>

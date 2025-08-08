@@ -13,3 +13,20 @@ export interface IUser {
     role: string;
   } | null;
 }
+
+export interface ISection {
+  id: number;
+  name: string;
+  slug: string;
+  description: string | null;
+  created_at: string;
+}
+
+export interface IPost {
+  id: number;
+  title: string;
+  content: string;
+  sections: { id: number; name: string };
+  users: { id: number; name: string };
+  created_at: Date;
+}

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import ButtonLink from "./ui/ButtonLink";
 import { createClient } from "@/utils/supabase/server";
+import { SquarePen } from "lucide-react";
 
 const Hero = async () => {
   const supabase = await createClient();
@@ -15,7 +16,14 @@ const Hero = async () => {
           منصة تجمع عشّاق العربية الفصحى، كن منهم وشارك مقالاتك وإقتباساتك
           المفضلة...
         </p>
-        {!user && (
+        {user ? (
+          <ButtonLink
+            title="اكتب شيئاً"
+            href="/new-post"
+            variant="button"
+            icon={<SquarePen />}
+          />
+        ) : (
           <ButtonLink title="انضم الآن" href="/signup" variant="button" />
         )}
       </div>

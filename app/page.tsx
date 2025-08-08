@@ -1,5 +1,7 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import Posts from "@/components/Posts";
+import Sections from "@/components/Sections";
 import Button from "@/components/ui/Button";
 
 export default async function Home() {
@@ -23,7 +25,10 @@ export default async function Home() {
           <Hero />
         </div>
       </div>
-      <Button>Test</Button>
+      <div className="my-12">
+        <Sections />
+        <Posts />
+      </div>
     </main>
   );
 }
