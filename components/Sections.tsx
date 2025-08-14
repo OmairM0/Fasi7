@@ -14,7 +14,7 @@ interface IProps {
 
 const Sections = ({ sections }: IProps) => {
   return (
-    <div className="text-center container mx-auto">
+    <div className="text-center container mx-auto" id="sections">
       <h2 className="font-bold text-3xl sm:text-4xl">أهم الأقسام</h2>
 
       <div className="flex items-center justify-center flex-wrap gap-2.5 mt-12 *:flex-1">

@@ -27,11 +27,11 @@ const Menu = ({ user, userData }: IProps) => {
           <Link href="/posts">المقالات</Link>
         </li>
         <li>
-          <Link href="#">الأقسام</Link>
+          <Link href="/#sections">الأقسام</Link>
         </li>
-        <li>
+        {/* <li>
           <Link href="#">من نحن</Link>
-        </li>
+        </li> */}
       </ul>
       {
         <div
@@ -51,15 +51,15 @@ const Menu = ({ user, userData }: IProps) => {
                 </Link>
               </li>
               <li>
-                <Link onClick={handleToggleMobileMenu} href="#">
+                <Link onClick={handleToggleMobileMenu} href="/#sections">
                   الأقسام
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link onClick={handleToggleMobileMenu} href="#">
                   من نحن
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>
