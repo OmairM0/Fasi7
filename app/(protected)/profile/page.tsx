@@ -1,19 +1,24 @@
 "use client";
 
+import Post from "@/components/Post";
 import Button from "@/components/ui/Button";
+import ButtonLink from "@/components/ui/ButtonLink";
 import Input from "@/components/ui/Input";
 import MiniSpinner from "@/components/ui/MiniSpinner";
 import Modal from "@/components/ui/Modal";
 import Spinner from "@/components/ui/Spinner";
-import { IUser } from "@/types";
+import { IComment, IPost, IUser } from "@/types";
 import {
   editBio,
   editName,
   editUsername,
+  getCommentsByUser,
+  getPostsByUser,
   getUserData,
   isUsernameAvailable,
 } from "@/utils/supabase/clientServices";
 import { Pen } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -27,6 +32,15 @@ export default function ProfilePage() {
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
   const [username, setUsername] = useState("");
+
+  // --
+  const [postsOrComments, setPostsOrComments] = useState("posts");
+  const [posts, setPosts] = useState<IPost[]>([]);
+  const [commments, setComments] = useState<IComment[]>([]);
+
+  const handlePostsOrCommentsChange = (type: string) => {
+    setPostsOrComments(type);
+  };
 
   // functions
   const handleEditName = async (name: string) => {
@@ -146,7 +160,7 @@ export default function ProfilePage() {
         toast.success("تم تعديل اسم المستخدم بنجاح");
 
         setUserData((prev) => {
-          const safePrev = prev!; // تأكيد لمرة واحدة
+          const safePrev = prev!;
           const safeData = safePrev.data!;
 
           return {
@@ -185,6 +199,18 @@ export default function ProfilePage() {
       setLoading(false);
     }
     fetchUserData();
+
+    async function fetchPosts() {
+      const result = await getPostsByUser();
+      setPosts(result);
+    }
+
+    fetchPosts();
+    async function fetchComments() {
+      const result = await getCommentsByUser();
+      setComments(result);
+    }
+    fetchComments();
   }, []);
 
   if (loading || !userData) {
@@ -254,7 +280,7 @@ export default function ProfilePage() {
           </p>
         </div>
       </div>
-      <div className="w-[90%] sm:w-[80%] bg-white mx-auto mt-8 p-4 rounded-lg shadow-md">
+      <div className="container bg-white mx-auto mt-8 p-4 rounded-lg shadow-md">
         <h3 className="text-lg font-semibold mb-4">معلومات الحساب</h3>
         <div className="flex flex-col gap-2 *:py-2">
           <div className="flex justify-between">
@@ -302,6 +328,61 @@ export default function ProfilePage() {
             </span>
           </div>
         </div>
+      </div>
+      <div className="container mx-auto mt-4">
+        <div className="flex bg-gray-100 mb-4 *:p-3 gap-2 *:cursor-pointer">
+          <button
+            onClick={() => handlePostsOrCommentsChange("posts")}
+            className={`${
+              postsOrComments == "posts" ? "text-turquoise bg-gray-200" : ""
+            }`}
+          >
+            مشاركاتي
+          </button>
+          <button
+            onClick={() => handlePostsOrCommentsChange("comments")}
+            className={`${
+              postsOrComments == "comments" ? "text-turquoise bg-gray-200" : ""
+            }`}
+          >
+            تعليقاتي
+          </button>
+        </div>
+        {postsOrComments == "posts" ? (
+          posts.length > 0 ? (
+            posts.map((post) => (
+              <div key={post.id} className="mb-2">
+                <Post
+                  key={post.id}
+                  id={post.id}
+                  title={post.title}
+                  content={post.content.slice(0, 150).concat("...")}
+                  section={post.sections.name}
+                  user={post.users.name}
+                  createdAt={post.created_at.toString()}
+                />
+              </div>
+            ))
+          ) : (
+            <p className="text-sm mt-4 text-gray-600">لاتوجد لديك أي مشاركات</p>
+          )
+        ) : commments.length > 0 ? (
+          commments.map((comment) => (
+            <div key={comment.id} className="bg-back p-2 mb-2">
+              <Link href={`/posts/${comment.topics?.id}`}>
+                {comment.content}
+              </Link>
+              <p className="text-sm mt-2">
+                {new Date(comment.created_at)
+                  .toLocaleDateString("ar")
+                  .split("/")
+                  .join("-")}
+              </p>
+            </div>
+          ))
+        ) : (
+          <p className="text-sm mt-4 text-gray-600">لاتوجد لديك أي تعليقات</p>
+        )}
       </div>
     </div>
   );

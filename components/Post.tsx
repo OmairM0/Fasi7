@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 interface IProps {
+  id: number;
   title: string;
   content: string;
   section: string;
@@ -8,10 +9,12 @@ interface IProps {
   createdAt: string;
 }
 
-const Post = ({ title, content, section, user, createdAt }: IProps) => {
+const Post = ({ id, title, content, section, user, createdAt }: IProps) => {
   return (
     <div className="bg-back p-4 rounded-md">
-      <h2 className="text-xl font-bold text-primary line-behind">{title}</h2>
+      <Link href={`/posts/${id}`}>
+        <h2 className="text-xl font-bold text-primary line-behind">{title}</h2>
+      </Link>
       <div>
         <div className="flex items-center gap-2">
           <div className="w-12 h-12 rounded-full flex items-center justify-center bg-gray-200 text-primary cursor-pointer">
@@ -33,11 +36,11 @@ const Post = ({ title, content, section, user, createdAt }: IProps) => {
       <p className="text-turquoise mt-2 mb-4 min-h-20">{content}</p>
       <div>
         <p className="text-base font-bold text-pink cursor-pointer">
-          #{section}
+          <Link href={`/sections/${section}`}>#{section}</Link>
         </p>
       </div>
       <Link
-        href="#"
+        href={`/posts/${id}`}
         className="border-b-3 relative z-0 border-dotted font-bold py-1 duration-300 before:content-[''] before:transition-all  before:-z-10 before:absolute before:bottom-0 before:bg-yellow before:h-0 before:w-full hover:before:h-full"
       >
         تابع القراءة

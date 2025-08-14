@@ -45,6 +45,7 @@ const PostsPage = () => {
         {posts.map((post) => (
           <Post
             key={post.id}
+            id={post.id}
             title={post.title}
             content={post.content.slice(0, 200).concat("...")}
             section={post.sections.name}

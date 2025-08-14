@@ -77,7 +77,7 @@ export default function NewPostPage() {
     try {
       const createdPost = await createPost(newPost);
       toast.success("تم نشر المشاركة بنجاح!", { id: toastId });
-      console.log("Created Post:", createdPost);
+
       formRef.current?.reset();
       setSection("");
       // Optional: reset the form or redirect

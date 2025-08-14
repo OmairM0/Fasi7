@@ -30,3 +30,11 @@ export interface IPost {
   users: { id: number; name: string };
   created_at: Date;
 }
+
+export interface IComment {
+  id: number;
+  content: string;
+  created_at: Date;
+  topics?: { id: number; title: string };
+  users: { id: number; name: string };
+}

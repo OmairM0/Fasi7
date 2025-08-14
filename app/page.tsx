@@ -2,18 +2,12 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Posts from "@/components/Posts";
 import Sections from "@/components/Sections";
-import Button from "@/components/ui/Button";
+
+import { getSections, getTopPosts } from "@/utils/supabase/serverServices";
 
 export default async function Home() {
-  // const supabase = await createClient();
-  // const {
-  //   data: { user },
-  // } = await supabase.auth.getUser();
-  // const handleLogout = async () => {
-  //   const supabase = createClient();
-  //   supabase.auth.signOut();
-  //   console.log("User logged out");
-  // };
+  const sections = await getSections();
+  const topPosts = await getTopPosts();
 
   return (
     <main className="">
@@ -26,8 +20,8 @@ export default async function Home() {
         </div>
       </div>
       <div className="my-12">
-        <Sections />
-        <Posts />
+        <Sections sections={sections} />
+        <Posts posts={topPosts} />
       </div>
     </main>
   );
